@@ -97,12 +97,12 @@ function payLoan() {
 
 store.dispatch(deposit(500));
 store.dispatch(withdraw(200));
-console.log(store.getState());
+console.log(store.getState()); // { balance: 300, loan: 0, loanPurpose: "" }
 
 store.dispatch(requestLoan(1000, "Buy a cheap car"));
-console.log(store.getState());
-store.dispatch(payLoan());
-console.log(store.getState());
+console.log(store.getState()); // { balance: 1300, loan: 1000, loanPurpose: "Buy a cheap car" }
+store.dispatch(payLoan()); // { balance: 300, loan: 0, loanPurpose: "" }
+console.log(store.getState()); // { balance: 300, loan: 0, loanPurpose: "" }
 
 function createCustomer(fullName, nationalID) {
   return {
@@ -116,5 +116,5 @@ function updateName(fullName) {
 }
 
 store.dispatch(createCustomer("Jonas Schmedtmann", "24343434"));
-store.dispatch(deposit(250));
-console.log(store.getState());
+store.dispatch(deposit(250)); 
+console.log(store.getState()); // { balance: 550, loan: 0, loanPurpose: "" }
