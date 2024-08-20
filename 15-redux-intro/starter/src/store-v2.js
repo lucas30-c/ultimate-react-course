@@ -11,16 +11,9 @@ const rootReducer = combineReducers({
   customer: customerReducer,
 });
 
-// const store = createStore(
-//   rootReducer,
-//   composeWithDevTools(applyMiddleware(thunk))
-// );
-
-const store = configureStore({
-  reducer: {
-    account: accountReducer,
-    customer: customerReducer,
-  },
-});
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default store;
