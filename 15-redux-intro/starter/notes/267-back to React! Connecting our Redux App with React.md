@@ -4,6 +4,7 @@ npm i react-redux
 ```
 
 Key Code
+index.js
 ```
 root.render(
   <React.StrictMode>
@@ -18,5 +19,21 @@ root.render(
 
  In order to read data from the Redux store, **all we have to do is to use the useSelector hook provided by react-redux.**
 
-** The useSelector hook provided by "react-redux" basically creates a subscription to the store.**
-Whenever the store changes, the component that subscribes to that store will re-render.
+
+The useSelector hook takes a callback function, and this function takes a single argument of the entire Redux store, and from that store, we can simply get the data we want.
+
+```
+  const customer = useSelector((store) => store.customer.fullName);
+```
+
+The store.customer comes from here:
+in store.js
+```
+  const rootReducer = combineReducers({
+    account: accountReducer,
+    **customer**: customerReducer,
+  })
+```
+
+(4:57) ** The useSelector hook provided by "react-redux" basically creates a subscription to the store.**
+Whenever the store changes, the component that subscribes to that store will re-render. (The state in store changes, the component re-renders)
