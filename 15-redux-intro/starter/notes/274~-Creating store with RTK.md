@@ -114,3 +114,92 @@ export function requestLoan(amount, purpose) {
 ```
 
 reducer is the function that actually updates the state when an action is dispatched.
+
+P275 1:04
+The createSlice function gives us 3 benefits:
+1. It automatically creates action creator from reducers
+2. It makes writing these reducers a lot easier, because we no longer needs the switch statement and the default case is automatically handled.
+3. **We can actually mutate our state inside the reducers**. This behind scene uses the immer library, converting our logic back to immutable logic.
+
+```
+const accountSlice = createSlice({
+  name: "account", // The name of the slice
+  initialState,
+  reducers: {
+    deposit(state, action) {
+      state.balance += action.payload; // mutating logic
+      state.isLoading = false;
+    },
+    withdraw(state, action) {
+      state.balance -= action.payload;
+    },
+    requestLoan: {
+      prepare(amount, purpose) {
+        return {
+          payload: { amount, purpose },
+        };
+      },
+
+      reducer(state, action) {
+        // in the new reducer, we no longer need to return the entire state. We can directly mutate the state object, modifying only the properties we need to change.
+        if (state.loan > 0) return;
+
+        state.loan = action.payload.amount;
+        state.loanPurpose = action.payload.purpose;
+        state.balance = state.balance + action.payload.amount;
+      },
+    },
+    payLoan(state) {
+      state.balance -= state.loan;
+      state.loan = 0;
+      state.loanPurpose = "";
+    },
+    convertingCurrency(state) {
+      state.isLoading = true;
+    },
+  },
+});
+```
+
+console.log(accountSlice.reducer)
+```
+ƒ (state, action) {
+    return createNextState(
+        state || initialState,
+        function (draft) {
+            switch (action.type) {
+                case 'account/deposit': {
+                    draft.balance += action.payload;
+                    draft.isLoading = false;
+                    break;
+                }
+                case 'account/withdraw': {
+                    draft.balance -= action.payload;
+                    break;
+                }
+                case 'account/requestLoan': {
+                    if (draft.loan > 0) return;
+                    draft.loan = action.payload.amount;
+                    draft.loanPurpose = action.payload.purpose;
+                    draft.balance += action.payload.amount;
+                    break;
+                }
+                case 'account/payLoan': {
+                    draft.balance -= draft.loan;
+                    draft.loan = 0;
+                    draft.loanPurpose = '';
+                    break;
+                }
+                case 'account/convertingCurrency': {
+                    draft.isLoading = true;
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+    );
+}
+
+
+```

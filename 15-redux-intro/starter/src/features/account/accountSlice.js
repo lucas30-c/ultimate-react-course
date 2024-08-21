@@ -7,12 +7,13 @@ const initialState = {
   isLoading: false,
 };
 
+// RTK way
 const accountSlice = createSlice({
-  name: "account",
+  name: "account", // The name of the slice
   initialState,
   reducers: {
     deposit(state, action) {
-      state.balance += action.payload;
+      state.balance += action.payload; // mutating logic
       state.isLoading = false;
     },
     withdraw(state, action) {
@@ -26,6 +27,7 @@ const accountSlice = createSlice({
       },
 
       reducer(state, action) {
+        // in the new reducer, we no longer need to return the entire state. We can directly mutate the state object, modifying only the properties we need to change.
         if (state.loan > 0) return;
 
         state.loan = action.payload.amount;

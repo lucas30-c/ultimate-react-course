@@ -16,6 +16,13 @@ const rootReducer = combineReducers({
 //   composeWithDevTools(applyMiddleware(thunk))
 // );
 
+/**
+ * The configureStore function accepts a configuration object as its argument.
+ * The configureStore function is a part of Redux Toolkit.
+ * The configuration object should have a reducer property.
+ * The configureStore automatically adds the thunk middleware.
+ */
+
 const store = configureStore({
   reducer: {
     account: accountReducer,
