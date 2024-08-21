@@ -49,7 +49,7 @@ const accountSlice = createSlice({
 export const { withdraw, requestLoan, payLoan } = accountSlice.actions;
 
 export function deposit(amount, currency) {
-  if (currency === "USD") return { type: "account/deposit", payload: amount };
+  if (currency === "USD") return { type: "account/deposit", payload: amount }; // Redux can figure out this is the action creator of that reducer. sliceName/reducerName convention
 
   return async function (dispatch, getState) {
     dispatch({ type: "account/convertingCurrency" });
