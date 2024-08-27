@@ -2,3 +2,8 @@
 /11-worldwise/final/dist
 /11-worldwise/final/node_modules
 /13-workout-timer/starter/node_modules
+.DS_Store
+Challenges/usereducer-bank-accout/package-lock.json
+/15-redux-intro/starter/node_modules
+15-redux-intro/starter/package-lock.json
+15-redux-intro/starter/README.md

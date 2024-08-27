@@ -1,3 +1,6 @@
+```
+ npm create vite@latest
+```
 
 In vite, to start(run) a project, the command is
 ```
