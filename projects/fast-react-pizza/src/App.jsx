@@ -6,12 +6,14 @@ import Cart from "./features/cart/Cart";
 import CreateOrder from "./features/order/CreateOrder";
 import Order from "./features/order/Order";
 import AppLayout from "./features/ui/AppLayout";
+import Error from "./features/ui/Error";
 
 // https://dev.to/tywenk/how-to-use-nested-routes-in-react-router-6-4jhd
 
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    errorElement: <Error/>,
     children: [
       {
         path: "/",
@@ -21,6 +23,7 @@ const router = createBrowserRouter([
         path: "/menu",
         element: <Menu />,
         loader: menuLoader,
+        errorElement: <Error />,
       },
       {
         path: "/cart",
